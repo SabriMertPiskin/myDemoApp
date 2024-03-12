@@ -16,43 +16,37 @@ import spark.template.mustache.MustacheTemplateEngine;
  */
 public class App 
 {
-    public static String meaningfulOperation(ArrayList<Integer> array,Integer [] arrInt,int i,String [] strArr){ // set of stringten arraylistte bulunan intleri index kabul edip o stringleri alıp concatanate eder sonra normal arraydekileri index kabul edip ekler en sonda tekli verilen indexteki elemanıda ekleyip dönürür
-      System.out.println("array1= "+array+" array2 = "+Arrays.toString(arrInt)+" int değeri = "+i+" string = "+ Arrays.toString(strArr));  
-      if(strArr.length < 1) return "";
-        String cevap = "";
-        if(array!= null){
-          for(int index : array){
-            if(index >= strArr.length && index >= 0) continue;
-            else{
-              cevap += strArr[index];
-            }
-          }
-        }
-        if(arrInt != null){
-          for(int index : arrInt){
-            if(index >= strArr.length && index >= 0) continue;
-            else{
-              cevap += strArr[index];
-            }
-          }
-        }
-        if(i < strArr.length && i >= 0) cevap += strArr[i];
+    
+    public static String meaningfulOperation(ArrayList<Integer> array, Integer[] arrInt, int i, String[] strArr) {
+        if (strArr.length < 1) return "";
 
-        return cevap;
+        StringBuilder resultBuilder = new StringBuilder();
+
+        // Processing array list of integers
+        if (array != null) {
+            for (int index : array) {
+                if (index >= 0 && index < strArr.length) {
+                    resultBuilder.append(strArr[index]);
+                }
+            }
+        }
+
+        // Processing array of integers
+        if (arrInt != null) {
+            for (int index : arrInt) {
+                if (index >= 0 && index < strArr.length) {
+                    resultBuilder.append(strArr[index]);
+                }
+            }
+        }
+
+        // Processing integer parameter
+        if (i >= 0 && i < strArr.length) {
+            resultBuilder.append(strArr[i]);
+        }
+
+        return resultBuilder.toString();
     }
-    
-    public static boolean search(ArrayList<Integer> array, int e) {
-        System.out.println("inside search");
-        if (array == null) return false;
-    
-        for (int elt : array) {
-          if (elt == e) return true;
-        }
-        return false;
-      }
-
-
-
       public static void main(String[] args) {
         port(getHerokuAssignedPort());
 
@@ -84,18 +78,15 @@ public class App
             inputList.add(value);
           }
           java.util.ArrayList<Integer> inputList2 = new java.util.ArrayList<>(); 
-          System.out.println("bura2");
           while (sc2.hasNextInt())
           {
             int value = sc2.nextInt();
             inputList2.add(value);
           }
-          System.out.println("bura2.5");
           Integer[] intArr = new Integer[inputList2.size()];
           intArr = inputList2.toArray(intArr);
 
           int inputInteger = sc3.nextInt();
-          System.out.println("bura3");
           java.util.ArrayList<String> strArrList = new java.util.ArrayList<>();
           
           while (sc4.hasNext())
@@ -103,12 +94,10 @@ public class App
             String value = sc4.next().replaceAll("\\s","");
             strArrList.add(value);
           }
-          System.out.println("bura3");
           String[] strArr = new String[strArrList.size()];
           strArr = strArrList.toArray(strArr);
           String result = App.meaningfulOperation(inputList,intArr,inputInteger,strArr);
-          System.out.println("bura5");
-         Map map = new HashMap();
+          Map map = new HashMap();
           map.put("result", result);
           return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
