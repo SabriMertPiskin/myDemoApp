@@ -1,2 +1,2 @@
 [![Build Status](https://app.travis-ci.com/SabriMertPiskin/myDemoApp.svg?token=xrbAAkgP65zpw5FZc8zp&branch=master)](https://app.travis-ci.com/SabriMertPiskin/myDemoApp)
-Demo site: https://quiet-cove-12345.herokuapp.com/
+Demo site: https://secure-fjord-43029-fdace09c0e43.herokuapp.com/
